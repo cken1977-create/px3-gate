@@ -72,3 +72,48 @@ main .bg-white { background: #141414; color: #efe8dc; }
 main .text-stone-500, main .text-stone-600 { color: #8a8580; }
 main .text-stone-900, main .text-stone-800, main .text-stone-700 { color: #efe8dc; }
 main .bg-red-800 { background: #2a1614 !important; color: #f3d0c8 !important; }
+
+.yk-meter {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(196, 164, 106, 0.22);
+}
+.yk-meter dt {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8a8580;
+}
+.yk-meter dd {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+}
+.yk-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 3rem;
+  width: 100%;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(196, 164, 106, 0.22);
+  background: #141414;
+  color: #efe8dc;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.yk-row-on { border-color: #c4a46a; }
+.yk-pill {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8580;
+}
+.px-gold {
+  background: #c4a46a !important;
+  color: #1a1408 !important;
+  border: none;
+  font-weight: 600;
+}
