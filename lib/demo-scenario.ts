@@ -1,4 +1,4 @@
-import type { Assignment, Credential, SitePack } from "./domain.ts";
+import type { Assignment, Credential, SitePack } from "./domain";
 
 export type DemoPerson = { id: string; name: string };
 

@@ -1,4 +1,4 @@
-import type { OverrideReasonCode } from "./domain.ts";
+import type { OverrideReasonCode } from "./domain";
 
 export type BlockChoice =
   | { type: "swap"; toPersonId: string }

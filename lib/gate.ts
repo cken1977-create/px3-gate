@@ -8,7 +8,7 @@ import {
   type SitePack,
   SKEW_THRESHOLD_MS,
   WARN_WINDOW_DAYS,
-} from "./domain.ts";
+} from "./domain";
 
 const STATE_RANK: Record<CredentialState, number> = {
   asserted: 0,

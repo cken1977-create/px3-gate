@@ -1,4 +1,4 @@
-import type { Override } from "./domain.ts";
+import type { Override } from "./domain";
 export type PacketKind = "compliant_packet" | "internal_exception_log";
 export function assertCompliantPacketClean(input: {
   kind: PacketKind;

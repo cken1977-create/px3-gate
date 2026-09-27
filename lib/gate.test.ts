@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import type { Assignment, Credential, SitePack } from "./domain.ts";
-import { assertCompliantPacketClean } from "./export.ts";
-import { evaluateGate } from "./gate.ts";
+import type { Assignment, Credential, SitePack } from "./domain";
+import { assertCompliantPacketClean } from "./export";
+import { evaluateGate } from "./gate";
 
 const pack: SitePack = {
   id: "pack-1",
