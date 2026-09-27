@@ -41,21 +41,26 @@ export function Shop() {
   const selected = people.find((p) => p.id === selectedId) ?? people[0];
   const selectedCreds = credentials.filter((c) => c.personId === selected?.id);
 
-  const evaluation = useMemo(() => {
-    if (!selected) return null;
+  function evFor(personId: string) {
     return evaluateGate({
-      assignment: { ...demoAssignment, personId: selected.id },
+      assignment: { ...demoAssignment, personId },
       pack: demoPack,
-      credentials: selectedCreds,
+      credentials: credentials.filter((c) => c.personId === personId),
       clock: {
         nowIso: new Date().toISOString(),
         deviceTime: new Date().toISOString(),
         lastServerTime: new Date().toISOString(),
         skewMs: 0,
       },
-      eligibleSwapCount: people.filter((p) => p.id !== selected.id).length,
+      eligibleSwapCount: people.filter((p) => p.id !== personId).length,
     });
-  }, [selected, selectedCreds, people]);
+  }
+
+  const evaluation = selected ? evFor(selected.id) : null;
+  const blocked = people.filter((p) => {
+    const r = evFor(p.id).result;
+    return r === "blocked" || r === "unknown";
+  }).length;
 
   function addPerson() {
     if (!name.trim()) return;
@@ -86,76 +91,76 @@ export function Shop() {
     refresh();
   }
 
-  const swaps = people.map((p) => ({ id: p.id, name: p.name }));
-
   return (
-    <main className="mx-auto flex min-h-full max-w-lg flex-col gap-8 px-4 py-10">
-      <header>
-        <p className="text-xs font-semibold tracking-widest text-stone-500">PX3 SHOP</p>
-        <h1 className="text-2xl font-semibold">Crew wallet</h1>
-        <p className="text-sm text-stone-600">Owner device. Events in this browser.</p>
+    <main className="px-4 pb-8">
+      <header className="mb-8">
+        <p>PX3 Shop</p>
+        <h1>Crew wallet</h1>
+        <p className="mt-2 text-sm text-stone-500">Owner device. Events stay in this browser.</p>
+        <dl className="yk-meter">
+          <div><dt>Pack</dt><dd>v{demoPack.version} asserted</dd></div>
+          <div><dt>Cabinet</dt><dd>{people.length} hands</dd></div>
+          <div><dt>Gate</dt><dd>{blocked} blocked</dd></div>
+          <div><dt>Stage</dt><dd>seed</dd></div>
+        </dl>
       </header>
 
-      <section className="flex flex-col gap-2">
-        <h2 className="text-lg font-semibold">Hands</h2>
+      <section className="mb-8 flex flex-col gap-2">
+        <h2 className="text-xl">Hands</h2>
         {people.map((p) => (
           <button
             key={p.id}
             type="button"
             onClick={() => setSelectedId(p.id)}
-            className={`min-h-12 rounded-lg border px-4 py-3 text-left ${p.id === selected?.id ? "border-stone-900 bg-stone-900 text-white" : "border-stone-300 bg-white"}`}
+            className={p.id === selected?.id ? "yk-row yk-row-on" : "yk-row"}
           >
-            {p.name}{p.sse ? " · SSE" : ""}
+            <span>{p.name}{p.sse ? " · SSE" : ""}</span>
+            <span className="yk-pill">{evFor(p.id).result}</span>
           </button>
         ))}
       </section>
 
-      <section className="flex flex-col gap-2">
-        <h2 className="text-lg font-semibold">Add hand</h2>
-        <input className="min-h-12 rounded border border-stone-300 px-3" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input className="min-h-12 rounded border border-stone-300 px-3" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-        <label className="flex items-center gap-2 text-sm">
+      <section className="mb-8 flex flex-col gap-2">
+        <h2 className="text-xl">Add hand</h2>
+        <input className="min-h-12 rounded border px-3" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input className="min-h-12 rounded border px-3" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <label className="flex items-center gap-2 text-sm text-stone-500">
           <input type="checkbox" checked={sse} onChange={(e) => setSse(e.target.checked)} />
           Short service employee
         </label>
-        <p className="text-xs text-stone-500">W-9 can wait.</p>
-        <button type="button" className="min-h-12 rounded-lg bg-stone-900 px-4 text-left text-white" onClick={addPerson}>Save hand</button>
+        <button type="button" className="px-gold min-h-12 rounded-lg px-4 text-left" onClick={addPerson}>Save hand</button>
       </section>
 
       {selected ? (
-        <section className="flex flex-col gap-2">
-          <h2 className="text-lg font-semibold">Card for {selected.name}</h2>
-          <select className="min-h-12 rounded border border-stone-300 px-3" value={cardType} onChange={(e) => setCardType(e.target.value as CredentialType)}>
-            {CARD_TYPES.map((c) => (
-              <option key={c.type} value={c.type}>{c.label}</option>
-            ))}
+        <section className="mb-8 flex flex-col gap-2">
+          <h2 className="text-xl">Card for {selected.name}</h2>
+          <select className="min-h-12 rounded border px-3" value={cardType} onChange={(e) => setCardType(e.target.value as CredentialType)}>
+            {CARD_TYPES.map((c) => <option key={c.type} value={c.type}>{c.label}</option>)}
           </select>
-          <input type="date" className="min-h-12 rounded border border-stone-300 px-3" value={expiresOn} onChange={(e) => setExpiresOn(e.target.value)} />
-          <label className="flex items-center gap-2 text-sm">
+          <input type="date" className="min-h-12 rounded border px-3" value={expiresOn} onChange={(e) => setExpiresOn(e.target.value)} />
+          <label className="flex items-center gap-2 text-sm text-stone-500">
             <input type="checkbox" checked={hasPhoto} onChange={(e) => setHasPhoto(e.target.checked)} />
             Photo of card (documented). Off = asserted.
           </label>
-          <button type="button" className="min-h-12 rounded-lg bg-stone-900 px-4 text-left text-white" onClick={saveCard}>Save card</button>
-          <ul className="text-sm text-stone-700">
-            {selectedCreds.map((c) => (
-              <li key={c.id}>{c.type} · {c.state} · {c.expiresOn ?? "no expiry"}</li>
-            ))}
+          <button type="button" className="yk-row min-h-12 px-4 text-left" onClick={saveCard}>Save card</button>
+          <ul className="text-sm text-stone-500">
+            {selectedCreds.map((c) => <li key={c.id}>{c.type} · {c.state} · {c.expiresOn ?? "no expiry"}</li>)}
           </ul>
         </section>
       ) : null}
 
       {evaluation && selected && (evaluation.result === "ok" || evaluation.result === "expiring") ? (
-        <section className="rounded-lg border border-emerald-700 bg-emerald-50 p-4">
-          <p className="font-semibold text-emerald-950">{selected.name} can roll</p>
+        <section className="bg-emerald-50 rounded-lg border p-4">
+          <p className="serif text-2xl">{selected.name} can roll</p>
         </section>
       ) : null}
 
       {evaluation && selected && evaluation.result !== "ok" && evaluation.result !== "expiring" ? (
         <BlockScreen
           evaluation={evaluation}
-          people={swaps}
+          people={people.map((p) => ({ id: p.id, name: p.name }))}
           assignedPersonId={selected.id}
-          jobLine="Lease 14 / sour · Example operator (owner-asserted pack)"
+          jobLine="Lease 14 / sour · owner-asserted pack"
           packLine={"Pack " + demoPack.id + " v" + demoPack.version}
         />
       ) : null}
