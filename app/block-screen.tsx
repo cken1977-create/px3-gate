@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { BlockChoice } from "../lib/actions.ts";
-import { exportKindFor } from "../lib/actions.ts";
-import type { GateEvaluation, OverrideReasonCode } from "../lib/domain.ts";
+import type { BlockChoice } from "../lib/actions";
+import { exportKindFor } from "../lib/actions";
+import type { GateEvaluation, OverrideReasonCode } from "../lib/domain";
 
 type Person = { id: string; name: string };
 

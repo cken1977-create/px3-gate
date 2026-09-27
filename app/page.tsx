@@ -1,10 +1,10 @@
-import { evaluateGate } from "../lib/gate.ts";
+import { evaluateGate } from "../lib/gate";
 import {
   demoAssignment,
   demoCredentials,
   demoPack,
   demoPeople,
-} from "../lib/demo-scenario.ts";
+} from "../lib/demo-scenario";
 import { BlockScreen } from "./block-screen";
 
 export default function Home() {
