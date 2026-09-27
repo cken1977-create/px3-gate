@@ -1,2 +1,59 @@
 @import "tailwindcss";
-body { font-family: Arial, Helvetica, sans-serif; }
+
+:root {
+  --ink: #0b0d10;
+  --ink-2: #14181d;
+  --line: rgba(212, 175, 108, 0.22);
+  --gold: #d4af6c;
+  --gold-2: #c49a4a;
+  --cream: #efe6d6;
+  --muted: #9aa3ad;
+  --danger: #c45c4a;
+  --ok: #7d9a6f;
+}
+
+html, body {
+  background: #0b0d10;
+  color: #efe6d6;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+h1, h2 {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+main input, main select, main textarea {
+  background: #0e1216;
+  color: #efe6d6;
+}
+
+main .bg-stone-900 {
+  background: #d4af6c !important;
+  color: #1a1408 !important;
+}
+
+main .bg-white {
+  background: #14181d;
+  color: #efe6d6;
+}
+
+main .text-stone-500, main .text-stone-600 {
+  color: #9aa3ad;
+}
+
+main .text-stone-900, main .text-stone-800, main .text-stone-700 {
+  color: #efe6d6;
+}
+
+main .bg-red-800 {
+  background: #3a1c18 !important;
+  color: #f3d0c8 !important;
+}
+
+main .text-red-800 {
+  color: #e7b2a8;
+}
