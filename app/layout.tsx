@@ -14,16 +14,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable} h-full`}>
       <body className="min-h-full antialiased">
-        <header className="px-top">
-          <div className="px-top-inner">
-            <div>
-              <p className="px-kicker">Yakini · Digital infrastructure</p>
-              <p className="px-brand">PX3 Energy <span>Gate</span></p>
-            </div>
-            <p className="px-top-meta">Odessa · owner device</p>
+        <header className="yk-bar">
+          <div className="yk-bar-left">
+            <span className="yk-dot" />
+            <span>Yakini</span>
           </div>
+          <div className="yk-bar-right">v0.1 · PX3 · Gate</div>
         </header>
         {children}
+        <footer className="yk-foot">
+          <span>Yakini Digital Infrastructure</span>
+          <span>A portfolio company of BRSA Holdings</span>
+        </footer>
       </body>
     </html>
   );

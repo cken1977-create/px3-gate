@@ -1,59 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0b0d10;
-  --ink-2: #14181d;
-  --line: rgba(212, 175, 108, 0.22);
-  --gold: #d4af6c;
-  --gold-2: #c49a4a;
-  --cream: #efe6d6;
-  --muted: #9aa3ad;
-  --danger: #c45c4a;
-  --ok: #7d9a6f;
+  --ink: #0a0a0a;
+  --gold: #c4a46a;
+  --cream: #efe8dc;
+  --muted: #8a8580;
+  --line: rgba(196, 164, 106, 0.22);
 }
 
 html, body {
-  background: #0b0d10;
-  color: #efe6d6;
+  background: #0a0a0a;
+  color: #efe8dc;
   min-height: 100%;
 }
 
-body {
-  font-family: var(--font-sans), system-ui, sans-serif;
-}
+body { font-family: var(--font-sans), system-ui, sans-serif; }
+h1, h2 { font-family: var(--font-serif), Georgia, serif; font-weight: 400; }
 
-h1, h2 {
-  font-family: var(--font-serif), Georgia, serif;
+.yk-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(196, 164, 106, 0.22);
 }
+.yk-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+}
+.yk-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 99px;
+  background: #c4a46a;
+}
+.yk-bar-right {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8580;
+}
+.yk-foot {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: #8a8580;
+}
+.yk-foot span:last-child { color: #c4a46a; }
+
+main { max-width: 42rem; margin: 0 auto; padding-top: 1.25rem; }
+main > header > p:first-child {
+  color: #c4a46a;
+  letter-spacing: 0.18em;
+  font-size: 0.62rem;
+}
+main h1 { font-size: 2.4rem; line-height: 1.05; }
 
 main input, main select, main textarea {
-  background: #0e1216;
-  color: #efe6d6;
+  background: #111;
+  color: #efe8dc;
 }
-
-main .bg-stone-900 {
-  background: #d4af6c !important;
-  color: #1a1408 !important;
-}
-
-main .bg-white {
-  background: #14181d;
-  color: #efe6d6;
-}
-
-main .text-stone-500, main .text-stone-600 {
-  color: #9aa3ad;
-}
-
-main .text-stone-900, main .text-stone-800, main .text-stone-700 {
-  color: #efe6d6;
-}
-
-main .bg-red-800 {
-  background: #3a1c18 !important;
-  color: #f3d0c8 !important;
-}
-
-main .text-red-800 {
-  color: #e7b2a8;
-}
+main .bg-stone-900 { background: #c4a46a !important; color: #1a1408 !important; }
+main .bg-white { background: #141414; color: #efe8dc; }
+main .text-stone-500, main .text-stone-600 { color: #8a8580; }
+main .text-stone-900, main .text-stone-800, main .text-stone-700 { color: #efe8dc; }
+main .bg-red-800 { background: #2a1614 !important; color: #f3d0c8 !important; }
